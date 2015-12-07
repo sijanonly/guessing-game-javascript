@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Guessing Color Game</title>
+<script type="text/javascript">
+	
+var colors = ['aqua', 'black', 'cyan', 'gold', 'green', 'indigo', 'lime', 'maroon', 'navy',
+					'olive', 'orange', 'pink', 'red', 'silver', 'teal'];
+
+var target;
+var guess_color;
+var finished = false;
+var guesses = 0;
+
+function do_game(){
+
+// it generates random number between 0 to 14
+var random_number = Math.random() * (colors.length - 1)
+
+// since Math.floor reduces 13.999 to 13, we have to add 1 for making upto 14
+var random_number_integer = Math.floor(random_number) + 1
+target = colors[random_number_integer]
+
+	while(!finished) {
+
+		guess_color = prompt("I am thinking of one of these colors"+
+							"\n\n"+ colors.join(" ") + 
+							"\n\n What color am I thinking of?");
+		guess_color = String(guess_color);
+
+		guesses += 1;
+		finished = check_guess();
+	}
+
+}
+
+function check_guess(){
+	
+
+	if ( colors.indexOf(guess_color) == -1 ){
+
+		alert('Sorry, I don\'t recognize your color' +
+			"\n \n Please try again ");
+		return false;
+	}
+
+	if (guess_color < target){
+
+		alert("Sorry, your guess is not correct!"+
+			"\n\n Hint: your color is alphabetically lower than mine"+
+			"\n\n Please try again");
+
+		return false;
+	}
+
+	if (guess_color > target){
+
+		alert("Sorry, your guess is not correct!"+
+			"\n\n Hint: your color is alphabetically higher than mine"+
+			"\n\n Please try again");
+
+		return false;
+	}
+
+		alert("Congratulations! you have guessed the color!"+
+			"\n\n It took you "+ guesses + 
+			" to finish the game!" + 
+			"\n\n You can see the color in the background");
+
+
+
+		myBody=document.getElementsByTagName("body")[0];
+
+
+		myBody.style.background=guess_color;
+		return true;
+
+}
+
+
+
+</script>
+
+</head>
+<body onload = "do_game()">
+
+</body>
+</html>
